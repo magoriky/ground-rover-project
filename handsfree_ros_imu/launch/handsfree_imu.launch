@@ -1,0 +1,12 @@
+<!--imu ros drive-->
+<launch>
+    <!-- imumodel, default a9 -->
+    <arg name="imu_type" default="a9" doc="imu_type [a9, b9, b6]"/>
+
+    <!-- imu corresponds to the python file -->
+    <node pkg="handsfree_ros_imu" type="hfi_$(arg imu_type)_ros.py" name="imu" output="screen">
+        <param name="port"               type = "str"    value="/dev/ttyUSB0"/>
+        <!-- a9 Gravity acceleration normalization processing, True uses normalization processing, False does not apply normalization processing-->
+        <param name="gra_normalization"  type = "bool"   value="True" if="$(eval imu_type == 'a9')"/>
+    </node>
+</launch>
